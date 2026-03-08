@@ -1,0 +1,41 @@
+name: Build Desktop
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  build:
+    name: Build ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest, macos-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build shared packages
+        run: pnpm build --filter=@im/core --filter=@im/crypto --filter=@im/db-schema
+
+      - name: Build renderer
+        run: pnpm --filter=desktop build
+
+      - name: Package & publish with electron-builder
+        run: npx electron-builder --publish always
+        working-directory: apps/desktop
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}

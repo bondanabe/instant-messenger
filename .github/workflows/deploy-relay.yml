@@ -1,0 +1,55 @@
+name: Deploy Relay Server to Railway
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'apps/relay-server/**'
+      - 'packages/core/**'
+      - '.github/workflows/deploy-relay.yml'
+  workflow_dispatch:
+
+jobs:
+  typecheck:
+    name: Type Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build packages
+        run: pnpm build --filter=@im/core --filter=@im/crypto --filter=@im/db-schema
+
+      - name: Run unit tests
+        run: pnpm test --filter=@im/core --filter=@im/crypto
+
+      - name: Type check relay server
+        run: pnpm typecheck --filter=relay-server
+
+  deploy:
+    name: Deploy to Railway
+    runs-on: ubuntu-latest
+    needs: typecheck
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Railway CLI
+        run: npm install -g @railway/cli
+
+      - name: Deploy to Railway
+        run: railway up --service relay-server --detach
+        working-directory: apps/relay-server
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}

@@ -1,0 +1,57 @@
+{
+  "name": "mobile",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "start": "react-native start",
+    "build:android": "cd android && ./gradlew assembleRelease",
+    "build:ios": "react-native build-ios --mode=Release",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src --ext .ts,.tsx",
+    "clean": "react-native clean"
+  },
+  "dependencies": {
+    "@im/core": "workspace:*",
+    "@im/crypto": "workspace:*",
+    "@im/db-schema": "workspace:*",
+    "@notifee/react-native": "^9.1.8",
+    "@op-engineering/op-sqlite": "^15.2.5",
+    "@react-navigation/native": "^7.0.14",
+    "@react-navigation/native-stack": "^7.2.0",
+    "drizzle-orm": "^0.38.3",
+    "react": "18.3.1",
+    "react-native": "0.77.1",
+    "react-native-audio-recorder-player": "^3.6.10",
+    "react-native-ble-plx": "^3.2.0",
+    "react-native-document-picker": "^9.3.1",
+    "react-native-image-picker": "^7.1.2",
+    "react-native-mmkv": "^3.1.0",
+    "react-native-safe-area-context": "^4.14.0",
+    "react-native-screens": "^4.5.0",
+    "react-native-tcp-socket": "^6.2.0",
+    "react-native-vector-icons": "^10.2.0",
+    "react-native-webrtc": "^124.0.4",
+    "react-native-wifi-p2p": "^3.6.1",
+    "react-native-zeroconf": "^0.13.7",
+    "socket.io-client": "^4.8.1",
+    "uuid": "^11.0.5",
+    "zustand": "^5.0.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.25.2",
+    "@babel/preset-env": "^7.25.3",
+    "@babel/runtime": "^7.25.0",
+    "@react-native/babel-preset": "0.77.1",
+    "@react-native/eslint-config": "0.77.1",
+    "@react-native/metro-config": "0.77.1",
+    "@react-native/typescript-config": "0.77.1",
+    "@types/react": "^18.3.1",
+    "@types/uuid": "^10.0.0",
+    "typescript": "^5.7.3"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

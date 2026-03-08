@@ -1,0 +1,74 @@
+appId: com.im.messenger
+productName: Instant Messenger
+copyright: Copyright © 2026 Instant Messenger
+
+# Direktori output build
+directories:
+  output: release
+  buildResources: assets
+
+# File yang dikemas
+files:
+  - dist/**
+  - node_modules/**
+  - package.json
+  - "!src/**"
+  - "!**/*.map"
+  - "!**/node_modules/*/{test,tests,__tests__,spec}/**"
+  - "!**/node_modules/**/{README,readme,Readme}.md"
+
+# Ikon aplikasi (di-generate dari assets/)
+# icon: assets/icon  # uncomment bila file icon sudah ada
+
+# ─────────────────────────────────────────────────────────────
+# PLATFORM TARGETS
+# ─────────────────────────────────────────────────────────────
+
+win:
+  target:
+    - target: nsis
+      arch: [x64]
+  # Uncomment bila memiliki code signing certificate:
+  # certificateFile: ./cert.pfx
+  # certificatePassword: ${env.WIN_CERT_PASSWORD}
+
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: Instant Messenger
+
+mac:
+  target:
+    - target: dmg
+      arch: [x64, arm64]
+  category: public.app-category.social-networking
+  # Uncomment bila memiliki Apple Developer ID:
+  # identity: Developer ID Application
+  # hardenedRuntime: true
+  # gatekeeperAssess: false
+
+dmg:
+  window:
+    width: 540
+    height: 380
+
+linux:
+  target:
+    - target: AppImage
+      arch: [x64]
+  category: Network
+
+# ─────────────────────────────────────────────────────────────
+# AUTO-UPDATE — GitHub Releases
+# Untuk aktifkan: set GH_TOKEN di environment CI/GitHub secret
+# ─────────────────────────────────────────────────────────────
+
+publish:
+  provider: github
+  # owner dan repo dibaca dari package.json repository.url atau env GITHUB_REPOSITORY
+  releaseType: release
+
+# Konfigurasi update
+afterSign: scripts/notarize.js  # Hanya diperlukan di macOS dengan notarisasi
