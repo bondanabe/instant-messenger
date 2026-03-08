@@ -3,10 +3,10 @@
 
 [build]
 builder = "nixpacks"
-buildCommand = "npm install && npm run build"
+buildCommand = "cd apps/relay-server && npm install && npm run build"
 
 [deploy]
-startCommand = "node dist/index.js"
+startCommand = "node apps/relay-server/dist/index.js"
 restartPolicyType = "on_failure"
 restartPolicyMaxRetries = 10
 healthcheckPath = "/health"
