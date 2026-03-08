@@ -7,7 +7,7 @@ interface Props {
 
 export function SetupScreen({ onComplete }: Props) {
   const [displayName, setDisplayName] = useState('')
-  const [relayUrl, setRelayUrl] = useState('http://localhost:3000')
+  const [relayUrl, setRelayUrl] = useState('https://relay-server-production-25d2.up.railway.app')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
@@ -80,7 +80,7 @@ export function SetupScreen({ onComplete }: Props) {
           onChange={(e) => setRelayUrl(e.target.value)}
         />
         <p style={styles.hint}>
-          URL relay server (lokal: http://localhost:3000)
+          URL relay server production: https://relay-server-production-25d2.up.railway.app
         </p>
 
         {error && <p style={styles.error}>{error}</p>}

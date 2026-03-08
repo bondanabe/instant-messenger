@@ -90,7 +90,7 @@ export function SettingsScreen({ onBack }: Props) {
               style={styles.input}
               value={relayUrl}
               onChange={(e) => setRelayUrl(e.target.value)}
-              placeholder="http://localhost:3000"
+              placeholder="https://relay-server-production-25d2.up.railway.app"
             />
             <p style={styles.hint}>
               Ganti relay URL lalu simpan. CM akan restart otomatis.

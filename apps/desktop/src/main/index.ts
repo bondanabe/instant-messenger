@@ -31,7 +31,7 @@ export function getStoredRelayUrl(): string {
       if (config.relayUrl) return config.relayUrl
     }
   } catch { /* ignore */ }
-  return 'http://localhost:3000'
+  return 'https://relay-server-production-25d2.up.railway.app'
 }
 
 /** Store relay URL to config file */
