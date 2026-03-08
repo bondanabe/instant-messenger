@@ -70,5 +70,4 @@ publish:
   # owner dan repo dibaca dari package.json repository.url atau env GITHUB_REPOSITORY
   releaseType: release
 
-# Konfigurasi update
-afterSign: scripts/notarize.js  # Hanya diperlukan di macOS dengan notarisasi
+# afterSign: scripts/notarize.js  # Uncomment bila sudah setup Apple notarization
